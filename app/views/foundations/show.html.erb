@@ -1,0 +1,27 @@
+<h1><%= @foundation.name %></h1>
+<p><%= @foundation.description %></p>
+
+<% if user_signed_in? && current_user.foundations.include?(@foundation) %>
+  <%= button_to 'Remove from Favorites', remove_favorite_foundation_path(@foundation), method: :delete %>
+<% elsif user_signed_in? %>
+  <%= button_to 'Add to Favorites', add_favorite_foundation_path(@foundation), method: :post %>
+<% end %>
+
+<h2>Events</h2>
+<% if user_signed_in? %>
+  <%= link_to 'Add Event', new_foundation_event_path(@foundation) %>
+<% end %>
+<ul>
+  <% @foundation.events.each do |event| %>
+    <li>
+      <strong><%= event.name %></strong><br>
+      <%= event.start_date.strftime('%Y-%m-%d') %> to <%= event.end_date.strftime('%Y-%m-%d') %><br>
+      Location: <%= event.location %><br>
+      Description: <%= event.description %>
+      <% if user_signed_in? %>
+              <%= link_to 'Edit', edit_foundation_event_path(@foundation, event) %>
+        <%= link_to 'Delete', foundation_event_path(@foundation, event), method: :delete, data: { confirm: 'Are you sure?' } %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

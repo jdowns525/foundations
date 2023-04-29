@@ -1,0 +1,20 @@
+<h1>Foundations</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Address</th>
+      <th>Category</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @foundations.each do |foundation| %>
+      <tr>
+        <td><%= link_to foundation.name, foundation %></td>
+        <td><%= foundation.address %></td>
+        <td><%= foundation.category %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
