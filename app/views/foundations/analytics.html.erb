@@ -1,0 +1,21 @@
+<h1>Foundation Analytics</h1>
+
+<div>
+  <h2>Foundations by Category</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th>Number of Foundations</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @foundation_data.each do |category, count| %>
+        <tr>
+          <td><%= Foundation.categories[category] %></td>
+          <td><%= count %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

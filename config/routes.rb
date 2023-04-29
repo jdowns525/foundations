@@ -7,11 +7,13 @@ Rails.application.routes.draw do
       post 'add_favorite'
       delete 'remove_favorite'
     end
+
+    collection do
+      get 'analytics'
+      get 'recommendations'
+      get 'my_favorites'
+    end
   end
-
-  get 'foundations/analytics', to: 'foundations#analytics'
-  get 'foundations/recommendations', to: 'foundations#recommendations'
-
 
   root 'foundations#index'
 end

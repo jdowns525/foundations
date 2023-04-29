@@ -8,16 +8,18 @@ class EventsController < ApplicationController
 
   def create
     @event = @foundation.events.new(event_params)
-
+  
     if @event.save
       redirect_to @foundation, notice: 'Event was successfully created.'
+      
+      User.joins(:foundations).where(foundations: { id: @foundation.id }).each do |user|
+        NotificationMailer.event_notification(user, @event).deliver_later
+      end
     else
       render :new
     end
-
-   User.joins(:foundations).where(foundations: { id: @foundation.id }).each do |user|
-      NotificationMailer.event_notification(user, @event).deliver_later
-end
+  end
+  
     
 
   def edit

@@ -1,0 +1,15 @@
+<h1>My Favorite Foundations</h1>
+
+<% if current_user.foundations.any? %>
+  <ul>
+    <% current_user.foundations.each do |foundation| %>
+      <li>
+        <%= link_to foundation.name, foundation %>
+        <%= foundation.category %>
+        <%= foundation.state %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>You have not added any foundations to your favorites yet.</p>
+<% end %>

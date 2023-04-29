@@ -3,15 +3,15 @@ class FoundationsController < ApplicationController
 
   def index
     @foundations = Foundation.all
-  
+
     if params[:category].present?
       @foundations = @foundations.where(category: params[:category])
     end
-  
+
     if params[:state].present?
       @foundations = @foundations.where(state: params[:state])
     end
-  
+
     case params[:sort_by]
     when 'name'
       @foundations = @foundations.order(:name)
@@ -21,7 +21,6 @@ class FoundationsController < ApplicationController
       @foundations = @foundations.order(impact_score: :desc)
     end
   end
-  
 
   def show
   end
@@ -64,21 +63,10 @@ class FoundationsController < ApplicationController
   def analytics
     @foundation_data = Foundation.group(:category).count
   end
-  
 
   def remove_favorite
     current_user.foundations.delete(@foundation)
     redirect_to @foundation, notice: 'Foundation was removed from your favorites.'
-  end
-
-  private
-
-  def set_foundation
-    @foundation = Foundation.find(params[:id])
-  end
-
-  def foundation_params
-    params.require(:foundation).permit(:name, :address, :city, :state, :zipcode, :latitude, :longitude, :description, :category)
   end
 
   def recommendations
@@ -92,5 +80,18 @@ class FoundationsController < ApplicationController
       redirect_to new_user_session_path, alert: "You need to sign in or sign up to see recommendations."
     end
   end
-  
+
+  def my_favorites
+    @favorites = current_user.foundations
+  end
+
+  private
+
+  def set_foundation
+    @foundation = Foundation.find(params[:id])
+  end
+
+  def foundation_params
+    params.require(:foundation).permit(:name, :address, :city, :state, :zipcode, :latitude, :longitude, :description, :category)
+  end
 end
