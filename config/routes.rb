@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   end
 
   get 'foundations/analytics', to: 'foundations#analytics'
+  get 'foundations/recommendations', to: 'foundations#recommendations'
 
 
   root 'foundations#index'

@@ -17,6 +17,7 @@
 #
 #  foundation_id  (foundation_id => foundations.id)
 #
+# app/models/impact.rb
 class Impact < ApplicationRecord
   belongs_to :foundation
 end

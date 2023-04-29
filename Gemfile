@@ -14,6 +14,8 @@ gem 'sprockets', '< 4'
 gem 'sassc-rails'
 gem 'faker'
 gem 'devise'
+gem 'pg_search'
+gem 'httparty'
 
 
 group :development do

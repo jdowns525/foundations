@@ -14,7 +14,11 @@ class EventsController < ApplicationController
     else
       render :new
     end
-  end
+
+   User.joins(:foundations).where(foundations: { id: @foundation.id }).each do |user|
+      NotificationMailer.event_notification(user, @event).deliver_later
+end
+    
 
   def edit
   end

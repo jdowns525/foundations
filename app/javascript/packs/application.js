@@ -28,3 +28,14 @@ document.addEventListener('DOMContentLoaded', () => {
     },
   });
 });
+
+$(document).on('change', 'select[data-remote="true"]', function() {
+  const url = $(this).data('url');
+  const params = {
+    category: $('#category').val(),
+    state: $('#state').val(),
+    sort_by: $('#sort_by').val()
+  };
+
+  $.get(url, params, null, 'script');
+});

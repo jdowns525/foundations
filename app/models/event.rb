@@ -20,6 +20,8 @@
 #
 #  foundation_id  (foundation_id => foundations.id)
 #
+# app/models/event.rb
 class Event < ApplicationRecord
   belongs_to :foundation
 end
+

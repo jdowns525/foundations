@@ -18,7 +18,9 @@
 #  foundation_id  (foundation_id => foundations.id)
 #  user_id        (user_id => users.id)
 #
+# app/models/favorite.rb
 class Favorite < ApplicationRecord
   belongs_to :user
   belongs_to :foundation
 end
+

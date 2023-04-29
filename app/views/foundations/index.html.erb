@@ -1,5 +1,20 @@
 <h1>Foundations</h1>
 
+<div>
+  <label>Filter by category:</label>
+  <%= select_tag :category, options_for_select(Foundation.categories.keys, params[:category]), include_blank: true, data: { remote: true, url: foundations_path } %>
+</div>
+
+<div>
+  <label>Filter by state:</label>
+  <%= select_tag :state, options_for_select(Foundation.states, params[:state]), include_blank: true, data: { remote: true, url: foundations_path } %>
+</div>
+
+<div>
+  <label>Sort by:</label>
+  <%= select_tag :sort_by, options_for_select([['Name', 'name'], ['Date added', 'date_added'], ['Impact', 'impact']], params[:sort_by]), include_blank: true, data: { remote: true, url: foundations_path } %>
+</div>
+
 <table>
   <thead>
     <tr>

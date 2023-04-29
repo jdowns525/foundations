@@ -1,0 +1,7 @@
+<h1>Recommended Foundations</h1>
+
+<ul>
+  <% @recommended_foundations.each do |foundation| %>
+    <li><%= link_to foundation.name, foundation_path(foundation) %></li>
+  <% end %>
+</ul>

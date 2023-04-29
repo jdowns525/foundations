@@ -3,7 +3,25 @@ class FoundationsController < ApplicationController
 
   def index
     @foundations = Foundation.all
+  
+    if params[:category].present?
+      @foundations = @foundations.where(category: params[:category])
+    end
+  
+    if params[:state].present?
+      @foundations = @foundations.where(state: params[:state])
+    end
+  
+    case params[:sort_by]
+    when 'name'
+      @foundations = @foundations.order(:name)
+    when 'date_added'
+      @foundations = @foundations.order(created_at: :desc)
+    when 'impact'
+      @foundations = @foundations.order(impact_score: :desc)
+    end
   end
+  
 
   def show
   end
@@ -62,4 +80,17 @@ class FoundationsController < ApplicationController
   def foundation_params
     params.require(:foundation).permit(:name, :address, :city, :state, :zipcode, :latitude, :longitude, :description, :category)
   end
+
+  def recommendations
+    if user_signed_in?
+      @recommended_foundations = []
+      current_user.foundations.each do |foundation|
+        similar_foundations = Foundation.search_by_description(foundation.description).limit(5)
+        @recommended_foundations += similar_foundations
+      end
+    else
+      redirect_to new_user_session_path, alert: "You need to sign in or sign up to see recommendations."
+    end
+  end
+  
 end
