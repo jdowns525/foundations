@@ -9,5 +9,8 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'foundations/analytics', to: 'foundations#analytics'
+
+
   root 'foundations#index'
 end

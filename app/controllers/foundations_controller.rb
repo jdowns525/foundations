@@ -43,6 +43,11 @@ class FoundationsController < ApplicationController
     redirect_to @foundation, notice: 'Foundation was added to your favorites.'
   end
 
+  def analytics
+    @foundation_data = Foundation.group(:category).count
+  end
+  
+
   def remove_favorite
     current_user.foundations.delete(@foundation)
     redirect_to @foundation, notice: 'Foundation was removed from your favorites.'
