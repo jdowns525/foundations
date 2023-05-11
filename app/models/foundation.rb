@@ -24,7 +24,28 @@ class Foundation < ApplicationRecord
 
   include PgSearch::Model
   pg_search_scope :search_by_description, against: :description
-  enum category: { arts: 0, education: 1, health: 2, environment: 3, human_services: 4 }
+  enum category: {
+  arts: 0,
+  education: 1,
+  health: 2,
+  environment: 3,
+  human_services: 4,
+  humanitarian: 5,
+  animal_welfare: 6,
+  artificial_intelligence: 7,
+  human_rights: 8,
+  conservation: 9,
+  food_security: 10,
+  youth_development: 11,
+  housing: 12,
+  children: 13,
+  disaster_relief: 14,
+  homelessness: 15,
+  arts_and_culture: 16,
+  social_justice: 17,
+  advocacy: 18
+}
+
 
   STATES = [
     'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut',
