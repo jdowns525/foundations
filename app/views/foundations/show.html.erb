@@ -2,15 +2,15 @@
 
 <div class="card">
   <div class="card-body">
-    <p class="card-text">Address: <%= @foundation.address %>, <%= @foundation.city %>, <%= @foundation.state %> <%= @foundation.zipcode %></p>
-    <p class="card-text">Latitude: <%= @foundation.latitude %></p>
-    <p class="card-text">Longitude: <%= @foundation.longitude %></p>
-    <p class="card-text">Description: <%= @foundation.description %></p>
-    <p class="card-text">Category: <%= @foundation.category %></p>
+    <p class="card-text"><strong>Address:</strong> <%= @foundation.address %>, <%= @foundation.city %>, <%= @foundation.state %> <%= @foundation.zipcode %></p>
+    <p class="card-text"><strong>Latitude:</strong> <%= @foundation.latitude %></p>
+    <p class="card-text"><strong>Longitude:</strong> <%= @foundation.longitude %></p>
+    <p class="card-text"><strong>Description:</strong> <%= @foundation.description %></p>
+    <p class="card-text"><strong>Category:</strong> <%= @foundation.category %></p>
   </div>
 </div>
 
-<div id="map" style="height: 400px;"></div>
+<div id="map" class="mt-4" style="height: 400px;"></div>
 
 <script>
   function initMap() {
