@@ -1,28 +1,21 @@
 class FoundationsController < ApplicationController
   before_action :set_foundation, only: [:show, :edit, :update, :destroy, :add_favorite, :remove_favorite]
-
+  before_action :set_foundations, only: [:index]
+  
   def index
-    @foundations = Foundation.all
-
-    if params[:category].present?
-      @foundations = @foundations.where(category: params[:category])
-    end
-
-    if params[:state].present?
-      @foundations = @foundations.where(state: params[:state])
-    end
-
-    case params[:sort_by]
-    when 'name'
-      @foundations = @foundations.order(:name)
-    when 'date_added'
-      @foundations = @foundations.order(created_at: :desc)
-    when 'impact'
-      @foundations = @foundations.order(impact_score: :desc)
+    apply_category_filter
+    apply_state_filter
+    apply_sorting
+    
+    respond_to do |format|
+      format.html
+      format.json { render json: @foundations }
     end
   end
 
   def show
+    @latitude = @foundation.latitude
+    @longitude = @foundation.longitude
   end
 
   def new
@@ -71,24 +64,51 @@ class FoundationsController < ApplicationController
 
   def recommendations
     if user_signed_in?
-      @recommended_foundations = []
-      current_user.foundations.each do |foundation|
-        similar_foundations = Foundation.search_by_description(foundation.description).limit(5)
-        @recommended_foundations += similar_foundations
+      @recommended_foundations = current_user.foundations.flat_map do |foundation|
+        Foundation.search_by_description(foundation.description).limit(5)
       end
     else
       redirect_to new_user_session_path, alert: "You need to sign in or sign up to see recommendations."
     end
   end
 
-  def my_favorites
-    @favorites = current_user.foundations
+  def map
+    @foundation = Foundation.find(params[:id])
+    @latitude = @foundation.latitude
+    @longitude = @foundation.longitude
   end
 
   private
 
   def set_foundation
     @foundation = Foundation.find(params[:id])
+  end
+
+  def set_foundations
+    @foundations = Foundation.all
+  end
+
+  def apply_category_filter
+    return unless params[:category].present?
+
+    @foundations = @foundations.where(category: params[:category])
+  end
+
+  def apply_state_filter
+    return unless params[:state].present?
+
+    @foundations = @foundations.where(state: params[:state])
+  end
+
+  def apply_sorting
+    case params[:sort_by]
+    when 'name'
+      @foundations = @foundations.order(:name)
+    when 'date_added'
+      @foundations = @foundations.order(created_at: :desc)
+    when 'impact'
+      @foundations = @foundations.order(impact_score: :desc)
+    end
   end
 
   def foundation_params

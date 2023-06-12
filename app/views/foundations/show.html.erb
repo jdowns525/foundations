@@ -9,3 +9,26 @@
     <p class="card-text">Category: <%= @foundation.category %></p>
   </div>
 </div>
+
+<div id="map" style="height: 400px;"></div>
+
+<script>
+  function initMap() {
+    var latitude = <%= @foundation.latitude %>;
+    var longitude = <%= @foundation.longitude %>;
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+      center: { lat: latitude, lng: longitude },
+      zoom: 12
+    });
+
+    var marker = new google.maps.Marker({
+      position: { lat: latitude, lng: longitude },
+      map: map,
+      title: 'Foundation Location'
+    });
+  }
+</script>
+
+<!-- Include the Google Maps API -->
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
