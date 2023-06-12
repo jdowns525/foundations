@@ -24,30 +24,22 @@
 
 
 <div class="card-body">
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Address</th>
-        <th>City</th>
-        <th>State</th>
-        <th>Zipcode</th>
-        <th>Category</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @foundations.each do |foundation| %>
-        <tr>
-          <td><%= link_to foundation.name, foundation %></td>
-          <td><%= foundation.address %></td>
-          <td><%= foundation.city %></td>
-          <td><%= foundation.state %></td>
-          <td><%= foundation.zipcode %></td>
-          <td><%= foundation.category %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <div class="row">
+    <% @foundations.each do |foundation| %>
+      <div class="col-md-4">
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5 class="card-title"><%= link_to foundation.name, foundation %></h5>
+            <p class="card-text"><strong>Address:</strong> <%= foundation.address %></p>
+            <p class="card-text"><strong>City:</strong> <%= foundation.city %></p>
+            <p class="card-text"><strong>State:</strong> <%= foundation.state %></p>
+            <p class="card-text"><strong>Zipcode:</strong> <%= foundation.zipcode %></p>
+            <p class="card-text"><strong>Category:</strong> <%= foundation.category %></p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>
 </div>
 
