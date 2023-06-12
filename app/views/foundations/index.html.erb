@@ -1,27 +1,25 @@
-<h1>Foundations</h1>
+<h1 class="text-center">Foundations</h1>
 
 <div class="card">
   <div class="card-body">
     <div class="row">
       <div class="col">
         <h5 class="card-title">Filter by category:</h5>
-        <%= select_tag :category, options_for_select(Foundation.categories.keys, params[:category]), include_blank: true, data: { remote: true, url: foundations_path }, class: "form-select" %>
+        <%= select_tag :category, options_for_select(Foundation.categories.keys, params[:category]), include_blank: true, data: { remote: true, url: foundations_path }, class: "form-select custom-select" %>
       </div>
 
       <div class="col">
         <h5 class="card-title">Filter by state:</h5>
-        <%= select_tag :state, options_for_select(Foundation::STATES, params[:state]), include_blank: true, data: { remote: true, url: foundations_path }, class: "form-select" %>
+        <%= select_tag :state, options_for_select(Foundation::STATES, params[:state]), include_blank: true, data: { remote: true, url: foundations_path }, class: "form-select custom-select" %>
       </div>
 
       <div class="col">
         <h5 class="card-title">Sort by:</h5>
-        <%= select_tag :sort_by, options_for_select([['Name', 'name'], ['Date added', 'date_added'], ['Impact', 'impact']], params[:sort_by]), include_blank: true, data: { remote: true, url: foundations_path }, class: "form-select" %>
+        <%= select_tag :sort_by, options_for_select([['Name', 'name'], ['Date added', 'date_added'], ['Impact', 'impact']], params[:sort_by]), include_blank: true, data: { remote: true, url: foundations_path }, class: "form-select custom-select" %>
       </div>
     </div>
   </div>
 </div>
-
-
 
 <div class="card-body">
   <div class="row">
@@ -29,7 +27,7 @@
       <div class="col-md-4">
         <div class="card mb-4">
           <div class="card-body">
-            <h5 class="card-title"><%= link_to foundation.name, foundation %></h5>
+            <h5 class="card-title"><%= link_to foundation.name, foundation, class: "card-link" %></h5>
             <p class="card-text"><strong>Address:</strong> <%= foundation.address %></p>
             <p class="card-text"><strong>City:</strong> <%= foundation.city %></p>
             <p class="card-text"><strong>State:</strong> <%= foundation.state %></p>
@@ -40,6 +38,5 @@
       </div>
     <% end %>
   </div>
-</div>
 </div>
 
