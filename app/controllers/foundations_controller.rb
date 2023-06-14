@@ -3,10 +3,9 @@ class FoundationsController < ApplicationController
   before_action :set_foundations, only: [:index]
   
   def index
-    apply_category_filter
-    apply_state_filter
+    filter_foundations
     apply_sorting
-    
+
     respond_to do |format|
       format.html
       format.json { render json: @foundations }
@@ -88,16 +87,9 @@ class FoundationsController < ApplicationController
     @foundations = Foundation.all
   end
 
-  def apply_category_filter
-    return unless params[:category].present?
-
-    @foundations = @foundations.where(category: params[:category])
-  end
-
-  def apply_state_filter
-    return unless params[:state].present?
-
-    @foundations = @foundations.where(state: params[:state])
+  def filter_foundations
+    @foundations = @foundations.where(category: params[:category]) if params[:category].present?
+    @foundations = @foundations.where(state: params[:state]) if params[:state].present?
   end
 
   def apply_sorting
@@ -110,8 +102,8 @@ class FoundationsController < ApplicationController
       @foundations = @foundations.order(impact_score: :desc)
     end
   end
-
+  
   def foundation_params
     params.require(:foundation).permit(:name, :address, :city, :state, :zipcode, :latitude, :longitude, :description, :category)
   end
-end
+end  

@@ -84,4 +84,8 @@ class Foundation < ApplicationRecord
   def assign_category
     self.category = CATEGORY_MAPPING[name] || :unknown
   end
+
+  def humanized_category
+    category.to_s.humanize
+  end
 end
